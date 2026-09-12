@@ -1,10 +1,19 @@
 package bookstore.domain;
 
-public class Book { 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
+public class Book {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String title;
     private String author;
-    private Integer publicaionYear; //Integer = can be null; int = cannot be null.
+    private Integer publicationYear; //Integer = can be null; int = cannot be null.
     private String isbn;
     private Double price; //Double = can be null; double = cannot be null.
 
@@ -13,7 +22,7 @@ public class Book {
 
         this.title = title;
         this.author = author;
-        this.publicaionYear = publicaionYear;
+        this.publicationYear = publicaionYear;
         this.isbn = isbn;
         this.price = price;   
     }
@@ -21,15 +30,19 @@ public class Book {
     //create a null object so Spring can create an empty form 
         //before the user enters data
     public Book(){
-
+        this.id = null;
         this.title = null;
         this.author = null;
-        this.publicaionYear = null;
+        this.publicationYear = null;
         this.isbn = null;
-        this.price = null; 
+        this.price = null;
     }
 
     // getter: returns the field value
+    public Long getId(){
+        return id;
+    }
+
     public String getTitle(){
         return title;
     }
@@ -37,7 +50,7 @@ public class Book {
         return author;
     }
     public Integer getPublicationYear(){
-        return publicaionYear;
+        return publicationYear;
     }
     public String getIsbn(){
         return isbn;
@@ -47,14 +60,18 @@ public class Book {
     }
 
     //setter: updates the field value
+    public void setId(Long id){
+        this.id = id;
+    }
+
     public void setTitle(String title){
         this.title = title;
     }
     public void setAuthor(String author){
         this.author = author;
     }
-    public void setPublicationYear(Integer publicaionYear){
-        this.publicaionYear = publicaionYear;
+    public void setPublicationYear(Integer publicationYear){
+        this.publicationYear = publicationYear;
     }
     public void setIsbn(String isbn){
         this.isbn = isbn;
