@@ -18,15 +18,9 @@ public class BookController {
         this.bookRepository = bookRepository;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/bookstore")
     public String showIndex(Model model) {
         model.addAttribute("books", bookRepository.findAll());
-        return "index"; // index.html
-    }
-    @GetMapping("/one")
-    public String showOneBook(Model model) {
-        Book book = new Book("Harry Potter", "J.K. Rowling", 1997, "123456", 19.99);
-        model.addAttribute("book", book);
-        return "one";
+        return "Bookstore";
     }
 }
