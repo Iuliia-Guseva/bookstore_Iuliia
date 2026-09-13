@@ -14,6 +14,7 @@
                 <th>Author</th>
                 <th>ISBN</th>
                 <th>Publication year</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -22,9 +23,15 @@
                 <td th:text="${book.author}"></td>
                 <td th:text="${book.isbn}"></td>
                 <td th:text="${book.publicationYear}"></td>
+                <td>
+                    <form th:action="@{/delete/{id}(id=${book.id})}" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
         </tbody>
     </table>
+    <a th:href="@{/add}">Add Book</a>
 
 </body>
 </html>
