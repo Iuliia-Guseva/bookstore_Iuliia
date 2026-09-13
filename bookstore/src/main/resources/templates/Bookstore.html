@@ -24,9 +24,7 @@
                 <td th:text="${book.isbn}"></td>
                 <td th:text="${book.publicationYear}"></td>
                 <td>
-                    <form th:action="@{/delete/{id}(id=${book.id})}" method="post">
-                        <button type="submit">Delete</button>
-                    </form>
+                    <a th:href="@{/delete/{id}(id=${book.id})}">Delete</a>
                 </td>
             </tr>
         </tbody>
