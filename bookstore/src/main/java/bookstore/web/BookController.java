@@ -49,6 +49,6 @@ public class BookController {
                 || (book.getAuthor() != null && !book.getAuthor().isBlank())
                 || book.getPublicationYear() != null
                 || (book.getIsbn() != null && !book.getIsbn().isBlank())
-                || book.getPrice() != null;
+                || book.getPrice() != 0.0;
     }
 }

@@ -15,7 +15,7 @@ public class Book {
     private String author;
     private Integer publicationYear; //Integer = can be null; int = cannot be null.
     private String isbn;
-    private Double price; //Double = can be null; double = cannot be null.
+    private double price;
 
     public Book(String title, String author, int publicaionYear, 
         String isbn, double price){
@@ -35,7 +35,7 @@ public class Book {
         this.author = null;
         this.publicationYear = null;
         this.isbn = null;
-        this.price = null;
+        this.price = 0.0;
     }
 
     // getter: returns the field value
@@ -55,7 +55,7 @@ public class Book {
     public String getIsbn(){
         return isbn;
     }
-    public Double getPrice(){
+    public double getPrice(){
         return price;
     }
 
@@ -76,7 +76,7 @@ public class Book {
     public void setIsbn(String isbn){
         this.isbn = isbn;
     }
-    public void setPrice(Double price){
+    public void setPrice(double price){
         this.price = price;
     }
 }
