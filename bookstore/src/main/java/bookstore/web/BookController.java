@@ -30,9 +30,25 @@ public class BookController {
         return "addBook";
     }
 
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable Long id, Model model) {
+        Book book = bookRepository.findById(id).orElseThrow();
+        model.addAttribute("book", book);
+        return "editBook";
+    }
+
     @PostMapping("/save")
     public String save(Book book){
         if (hasBookData(book)) {
+            bookRepository.save(book);
+        }
+        return "redirect:/bookstore";
+    }
+
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable Long id, Book book) {
+        if (hasBookData(book)) {
+            book.setId(id);
             bookRepository.save(book);
         }
         return "redirect:/bookstore";
