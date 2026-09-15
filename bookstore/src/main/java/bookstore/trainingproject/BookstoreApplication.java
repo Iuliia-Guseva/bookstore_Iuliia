@@ -1,5 +1,7 @@
 package bookstore.trainingproject;
 
+import java.math.BigDecimal;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,6 +11,8 @@ import org.springframework.boot.persistence.autoconfigure.EntityScan;
 
 import bookstore.domain.Book;
 import bookstore.domain.BookRepository;
+import bookstore.domain.Category;
+import bookstore.domain.CategoryRepository;
 
 @SpringBootApplication(scanBasePackages = "bookstore")
 @EntityScan(basePackages = "bookstore.domain")
@@ -20,23 +24,30 @@ public class BookstoreApplication {
     }
 
     @Bean
-    public CommandLineRunner dataLoader(BookRepository repository) {
+    public CommandLineRunner dataLoader(BookRepository repository, CategoryRepository categoryRepository) {
         return args -> {
-            repository.save(new Book(
+            Category fantasy = categoryRepository.save(new Category("Fantasy"));
+            Category adventure = categoryRepository.save(new Category("Adventure"));
+
+            Book harryPotter = new Book(
                 "Harry Potter",
                 "J.K. Rowling",
                 1997,
                 "123456",
-                19.99
-            ));
+                new BigDecimal("19.99")
+            );
+            harryPotter.setCategory(fantasy);
+            repository.save(harryPotter);
 
-            repository.save(new Book(
+            Book theHobbit = new Book(
                 "The Hobbit",
                 "J.R.R. Tolkien",
                 1937,
                 "654321",
-                15.99
-            ));
+                new BigDecimal("15.99")
+            );
+            theHobbit.setCategory(adventure);
+            repository.save(theHobbit);
         };
     }
 }

@@ -1,9 +1,12 @@
 package bookstore.domain;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Book {
@@ -15,10 +18,12 @@ public class Book {
     private String author;
     private Integer publicationYear; //Integer = can be null; int = cannot be null.
     private String isbn;
-    private double price;
+    private BigDecimal price;
+    @ManyToOne
+    private Category category;
 
     public Book(String title, String author, int publicaionYear, 
-        String isbn, double price){
+        String isbn, BigDecimal price){
 
         this.title = title;
         this.author = author;
@@ -35,7 +40,8 @@ public class Book {
         this.author = null;
         this.publicationYear = null;
         this.isbn = null;
-        this.price = 0.0;
+        this.price = BigDecimal.ZERO;
+        this.category = null;
     }
 
     // getter: returns the field value
@@ -55,8 +61,12 @@ public class Book {
     public String getIsbn(){
         return isbn;
     }
-    public double getPrice(){
+    public BigDecimal getPrice(){
         return price;
+    }
+
+    public Category getCategory(){
+        return category;
     }
 
     //setter: updates the field value
@@ -76,7 +86,11 @@ public class Book {
     public void setIsbn(String isbn){
         this.isbn = isbn;
     }
-    public void setPrice(double price){
+    public void setPrice(BigDecimal price){
         this.price = price;
+    }
+
+    public void setCategory(Category category){
+        this.category = category;
     }
 }

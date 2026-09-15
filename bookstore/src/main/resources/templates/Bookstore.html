@@ -1,19 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Bookstore</title>
 </head>
 <body>
+<main class="page-shell">
 
     <h1>Welcome to the Bookstore</h1>
-    <table>
+    <p class="page-intro">A small shelf of well-loved stories.</p>
+    <div class="table-wrap">
+    <table class="book-table">
         <thead>
             <tr>
                 <th>Title</th>
                 <th>Author</th>
                 <th>ISBN</th>
                 <th>Publication year</th>
+                <th>Price</th>
+                <th>Category</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -23,14 +30,18 @@
                 <td th:text="${book.author}"></td>
                 <td th:text="${book.isbn}"></td>
                 <td th:text="${book.publicationYear}"></td>
-                <td>
-                    <a th:href="@{/delete/{id}(id=${book.id})}">Delete</a>
-                    <a th:href="@{/edit/{id}(id=${book.id})}">Edit</a>
+                <td th:text="${book.price}"></td>
+                <td th:text="${book.category?.name}"></td>
+                <td class="actions">
+                    <a class="action-link delete-button" th:href="@{/delete/{id}(id=${book.id})}">Delete</a>
+                    <a class="action-link edit-button" th:href="@{/edit/{id}(id=${book.id})}">Edit</a>
                 </td>
             </tr>
         </tbody>
     </table>
-    <a th:href="@{/add}">Add Book</a>
+    </div>
+    <p><a class="button primary-button" th:href="@{/add}">Add Book</a></p>
 
+</main>
 </body>
 </html>

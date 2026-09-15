@@ -1,21 +1,27 @@
 package bookstore.web;
 
+import java.math.BigDecimal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import bookstore.domain.Book;
 import bookstore.domain.BookRepository;
+import bookstore.domain.CategoryRepository;
 
 @Controller 
 public class BookController {
 
     private final BookRepository bookRepository;
+    private final CategoryRepository categoryRepository;
 
-    public BookController(BookRepository bookRepository) {
+    public BookController(BookRepository bookRepository, CategoryRepository categoryRepository) {
         this.bookRepository = bookRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping("/bookstore")
@@ -27,6 +33,7 @@ public class BookController {
     @GetMapping("/add")
     public String addBook(Model model){
         model.addAttribute("book", new Book());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "addBook";
     }
 
@@ -34,21 +41,24 @@ public class BookController {
     public String editBook(@PathVariable Long id, Model model) {
         Book book = bookRepository.findById(id).orElseThrow();
         model.addAttribute("book", book);
+        model.addAttribute("categories", categoryRepository.findAll());
         return "editBook";
     }
 
     @PostMapping("/save")
-    public String save(Book book){
+    public String save(Book book, @RequestParam Long categoryId){
         if (hasBookData(book)) {
+            book.setCategory(categoryRepository.findById(categoryId).orElseThrow());
             bookRepository.save(book);
         }
         return "redirect:/bookstore";
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id, Book book) {
+    public String update(@PathVariable Long id, Book book, @RequestParam Long categoryId) {
         if (hasBookData(book)) {
             book.setId(id);
+            book.setCategory(categoryRepository.findById(categoryId).orElseThrow());
             bookRepository.save(book);
         }
         return "redirect:/bookstore";
@@ -65,6 +75,6 @@ public class BookController {
                 || (book.getAuthor() != null && !book.getAuthor().isBlank())
                 || book.getPublicationYear() != null
                 || (book.getIsbn() != null && !book.getIsbn().isBlank())
-                || book.getPrice() != 0.0;
+                || (book.getPrice() != null && book.getPrice().compareTo(BigDecimal.ZERO) != 0);
     }
 }
