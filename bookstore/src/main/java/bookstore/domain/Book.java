@@ -2,6 +2,8 @@ package bookstore.domain;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +22,7 @@ public class Book {
     private String isbn;
     private BigDecimal price;
     @ManyToOne
+    @JsonIgnoreProperties("books") // // a way to avoid infinite loop during JSON serialization/deserialization
     private Category category;
 
     public Book(String title, String author, int publicaionYear, 
