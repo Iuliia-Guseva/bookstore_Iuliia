@@ -1,0 +1,196 @@
+:root {
+    --ink: #2e241d;
+    --muted-ink: #756354;
+    --paper: #fff8ed;
+    --paper-deep: #f3e4cf;
+    --rust: #a6492f;
+    --rust-dark: #7f3525;
+    --amber: #d88a32;
+    --moss: #536344;
+    --line: #ddc7ad;
+    --shadow: 0 18px 45px rgba(74, 45, 26, 0.14);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 3rem 1.25rem;
+    color: var(--ink);
+    background:
+        radial-gradient(circle at 8% 12%, rgba(216, 138, 50, 0.16), transparent 28%),
+        radial-gradient(circle at 92% 88%, rgba(166, 73, 47, 0.12), transparent 30%),
+        var(--paper-deep);
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.page-shell {
+    width: min(1080px, 100%);
+    margin: 0 auto;
+}
+
+h1 {
+    margin: 0 0 1.75rem;
+    color: var(--rust-dark);
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.page-intro {
+    margin: -1rem 0 1.75rem;
+    color: var(--muted-ink);
+    font-size: 1.05rem;
+}
+
+.table-wrap,
+.form-card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(255, 248, 237, 0.9);
+    box-shadow: var(--shadow);
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.book-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.book-table th {
+    padding: 1rem 1.1rem;
+    color: #fff8ed;
+    background: var(--rust);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.book-table td {
+    padding: 1rem 1.1rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+}
+
+.book-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.book-table tbody tr:hover {
+    background: #fff1dc;
+}
+
+.book-table td:nth-child(5) {
+    color: var(--rust-dark);
+    font-weight: 700;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+a {
+    color: var(--rust-dark);
+}
+
+.button,
+.action-link {
+    display: inline-block;
+    border: 0;
+    border-radius: 7px;
+    padding: 0.7rem 1rem;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.button:hover,
+.action-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 16px rgba(74, 45, 26, 0.18);
+}
+
+.primary-button {
+    color: #fff8ed;
+    background: var(--moss);
+}
+
+.primary-button:hover {
+    background: #3f4e32;
+}
+
+.delete-button {
+    color: #fff8ed;
+    background: var(--rust);
+}
+
+.edit-button {
+    color: var(--ink);
+    background: #e7bd79;
+}
+
+.form-card {
+    max-width: 650px;
+    padding: clamp(1.4rem, 4vw, 2.5rem);
+}
+
+.book-form {
+    display: grid;
+    gap: 0.55rem;
+}
+
+.book-form label {
+    margin-top: 0.65rem;
+    color: var(--muted-ink);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.book-form input,
+.book-form select {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 0.8rem 0.9rem;
+    color: var(--ink);
+    background: #fffdf8;
+    font: inherit;
+    font-size: 1rem;
+}
+
+.book-form input:focus,
+.book-form select:focus {
+    outline: 3px solid rgba(216, 138, 50, 0.28);
+    border-color: var(--amber);
+}
+
+.book-form .button {
+    justify-self: start;
+    margin-top: 1rem;
+}
+
+@media (max-width: 700px) {
+    body {
+        padding: 2rem 0.75rem;
+    }
+
+    .book-table {
+        min-width: 820px;
+    }
+}
