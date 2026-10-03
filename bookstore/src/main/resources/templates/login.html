@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Sign in</title>
+</head>
+<body>
+    <main class="page-shell">
+        <h1>Sign in</h1>
+        <div class="form-card">
+            <p class="error-message" th:if="${param.error}" role="alert">Invalid username or password.</p>
+            <p th:if="${param.logout}">You have been signed out.</p>
+            <form class="book-form" th:action="@{/login}" method="post">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" autocomplete="username" required autofocus>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" autocomplete="current-password" required>
+
+                <button class="button primary-button" type="submit">Sign in</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

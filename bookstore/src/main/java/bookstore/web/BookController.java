@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,10 +30,23 @@ public class BookController {
         this.categoryRepository = categoryRepository;
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/bookstore";
+    }
+
     @GetMapping("/bookstore")
-    public String showIndex(Model model) {
+    public String showIndex(Model model, Authentication authentication) {
         model.addAttribute("books", bookRepository.findAll());
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("isAdmin", authentication.getAuthorities().stream()
+                .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN")));
         return "Bookstore";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
