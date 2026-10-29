@@ -15,6 +15,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/css/**").permitAll()
+                        .requestMatchers("/login").permitAll()
                         .requestMatchers("/delete/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
