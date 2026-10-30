@@ -8,9 +8,13 @@
 </head>
 <body>
 <main class="page-shell">
-
-    <h1>Welcome to the Bookstore</h1>
-    <p class="page-intro">A small shelf of well-loved stories.</p>
+    <header class="bookstore-header">
+        <div>
+            <h1>Welcome to the Bookstore</h1>
+            <p class="page-intro">A small shelf of well-loved stories.</p>
+        </div>
+        <p class="authenticated-user">Signed in as <strong th:text="${username}"></strong></p>
+    </header>
     <div class="table-wrap">
     <table class="book-table">
         <thead>
@@ -33,14 +37,19 @@
                 <td th:text="${book.price}"></td>
                 <td th:text="${book.category?.name}"></td>
                 <td class="actions">
-                    <a class="action-link delete-button" th:href="@{/delete/{id}(id=${book.id})}">Delete</a>
+                    <a class="action-link delete-button" th:if="${isAdmin}" th:href="@{/delete/{id}(id=${book.id})}">Delete</a>
                     <a class="action-link edit-button" th:href="@{/edit/{id}(id=${book.id})}">Edit</a>
                 </td>
             </tr>
         </tbody>
     </table>
     </div>
-    <p><a class="button primary-button" th:href="@{/add}">Add Book</a></p>
+    <div class="page-actions">
+        <a class="button primary-button" th:href="@{/add}">Add Book</a>
+        <form th:action="@{/logout}" method="post">
+            <button class="button logout-button" type="submit">Log out</button>
+        </form>
+    </div>
 
 </main>
 </body>

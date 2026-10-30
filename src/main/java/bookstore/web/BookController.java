@@ -1,13 +1,19 @@
 package bookstore.web;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import bookstore.domain.Book;
 import bookstore.domain.BookRepository;
@@ -24,10 +30,33 @@ public class BookController {
         this.categoryRepository = categoryRepository;
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/bookstore";
+    }
+
     @GetMapping("/bookstore")
-    public String showIndex(Model model) {
+    public String showIndex(Model model, Authentication authentication) {
         model.addAttribute("books", bookRepository.findAll());
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("isAdmin", authentication.getAuthorities().stream()
+                .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN")));
         return "Bookstore";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping(value = "/books", method = RequestMethod.GET)
+    public @ResponseBody List<Book> bookListRest() {
+        return (List<Book>) bookRepository.findAll();
+    }
+
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
+    public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId) {
+        return bookRepository.findById(bookId);
     }
 
     @GetMapping("/add")
